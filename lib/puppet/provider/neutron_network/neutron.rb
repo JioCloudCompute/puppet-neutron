@@ -103,8 +103,8 @@ Puppet::Type.type(:neutron_network).provide(
         "--provider:segmentation_id=#{@resource[:provider_segmentation_id]}"
     end
 
-    if @resource[:router_external]
-      network_opts << "--router:external=#{@resource[:router_external]}"
+    if @resource[:router_external] and @resource[:router_external].casecmp("true")
+      network_opts << "--router:external"
     end
 
     results = auth_neutron('net-create', '--format=shell',
